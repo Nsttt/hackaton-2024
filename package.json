@@ -23,9 +23,11 @@
 	"dependencies": {
 		"@solid-primitives/websocket": "^1.2.2",
 		"@solidjs/router": "^0.14.10",
+		"@types/uuid": "^10.0.0",
 		"clsx": "^2.1.1",
 		"mqtt": "^5.10.1",
 		"solid-js": "^1.9.3",
-		"tailwind-merge": "^2.5.4"
+		"tailwind-merge": "^2.5.4",
+		"uuid": "^10.0.0"
 	}
 }

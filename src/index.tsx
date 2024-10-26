@@ -1,10 +1,25 @@
 /* @refresh reload */
-import { render } from "solid-js/web";
-
 import "./index.css";
-import App from "./App";
+import { Router, Route } from "@solidjs/router";
+import { render } from "solid-js/web";
+import { lazy } from "solid-js";
 
 const root = document.getElementById("root");
+
+const routes = [
+  {
+    path: "/",
+    component: lazy(() => import("./pages/root")),
+  },
+  {
+    path: "/start",
+    component: lazy(() => import("./pages/main")),
+  },
+  {
+    path: "/:code", // Dynamic route to capture the code parameter
+    component: lazy(() => import("./pages/room")),
+  },
+];
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
@@ -12,5 +27,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-render(() => <App />, root!);
+render(() => <Router>{routes}</Router>, root!);

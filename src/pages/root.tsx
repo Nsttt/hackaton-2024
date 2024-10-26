@@ -6,6 +6,7 @@ import {
   onCleanup,
   onMount,
 } from "solid-js";
+import { cn } from "../utils/cn";
 
 const GridSize = 100;
 const canvasWidth = 2000;
@@ -19,7 +20,6 @@ export default function EmojiBattle() {
     height: canvasHeight,
   });
 
-  const [zoom, setZoom] = createSignal(1);
   const [selectedEmoji, setSelectedEmoji] = createSignal<string>("😎");
 
   const client = mqtt.connect("ws://192.168.204.109:8083/mqtt");
@@ -34,7 +34,6 @@ export default function EmojiBattle() {
 
     const gridPixelSize = canvasSize().width / GridSize;
 
-    // Draw the grid lines
     ctx.strokeStyle = "#e0e0e0";
     ctx.lineWidth = 1;
     for (let i = 0; i <= GridSize; i++) {
@@ -152,19 +151,20 @@ export default function EmojiBattle() {
   });
 
   return (
-    <div style="display: flex; flex-direction: column; align-items: center; padding: 20px; background-color: #f0f0f5;">
-      <h2 style="color: #333; font-size: 1.8em; margin-bottom: 10px;">
-        Real-Time Emoji Battle
-      </h2>
+    <div class="flex flex-col items-center p-5 bg-gray-100">
+      <h2 class="text-gray-800 text-2xl mb-2">Real-Time Emoji Battle</h2>
 
-      <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
+      <div class="flex justify-center gap-2 mb-4">
         <For each={emojis}>
           {(emoji) => (
             <button
               type="button"
-              style={`width: 40px; height: 40px; font-size: 1.5em; border: ${
-                selectedEmoji() === emoji ? "3px solid #444" : "2px solid #ccc"
-              };`}
+              class={cn(
+                "w-10 h-10 text-xl",
+                selectedEmoji() === emoji
+                  ? "border-3 border-gray-700"
+                  : "border-2 border-gray-300"
+              )}
               onClick={() => setSelectedEmoji(emoji)}
             >
               {emoji}
@@ -177,7 +177,7 @@ export default function EmojiBattle() {
         ref={canvas}
         width={canvasSize().width}
         height={canvasSize().height}
-        style="border: 1px solid #ddd; background-color: #f9f9f9; cursor: crosshair;"
+        class="border border-gray-300 bg-gray-50 cursor-crosshair"
       />
     </div>
   );
