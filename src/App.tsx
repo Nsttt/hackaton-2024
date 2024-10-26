@@ -22,7 +22,7 @@ export default function EmojiBattle() {
   const [zoom, setZoom] = createSignal(1);
   const [selectedEmoji, setSelectedEmoji] = createSignal<string>("😎");
 
-  const client = mqtt.connect("ws://192.168.204.166:8083/mqtt");
+  const client = mqtt.connect("ws://192.168.204.109:8083/mqtt");
 
   const drawGrid = () => {
     const ctx = canvas.getContext("2d");
